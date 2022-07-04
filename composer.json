@@ -1,0 +1,30 @@
+{
+    "name": "mikhud/csv-gentree",
+    "description": "Parse CSV file and generate JSON tree file",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "m.udintsev",
+            "email": "mikhail.udintsev@yandex.ru",
+            "homepage": "https://github.com/MikhUd"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MikhUd\\CSVGenTree\\Engine\\": "Engine/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MikhUd\\CSVGenTree\\Tests\\": "Tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit tests"
+    }
+}

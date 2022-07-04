@@ -1,0 +1,17 @@
+{
+  "algorithm": "genTree",
+  "available_algorithms": {
+    "genTree": {
+      "controller": {
+        "path": "MikhUd\\CSVGenTree\\Engine\\Controllers\\GenTreeController"
+      },
+      "presets" : {
+        "parser_type": "csv",
+        "delimeter": ";"
+      }
+    }
+  },
+  "available_parsers": {
+    "csv": "MikhUd\\CSVGenTree\\Engine\\Parsers\\CSVParser"
+  }
+}
