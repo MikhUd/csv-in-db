@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MikhUd\CSVGenTree\Engine\Algorithms\Contracts;
 
 /**
- * Класс AlgorithmContract.
+ * Интерфейс AlgorithmContract.
  */
 interface AlgorithmContract
 {

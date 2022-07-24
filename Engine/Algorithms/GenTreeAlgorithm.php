@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MikhUd\CSVGenTree\Engine\Algorithms;
 
 use MikhUd\CSVGenTree\Engine\Algorithms\Contracts\AlgorithmContract;
+use MikhUd\CSVGenTree\Engine\Nodes\Node;
 
 /**
  * Класс GenTreeAlgorithm.
@@ -26,64 +27,48 @@ class GenTreeAlgorithm implements AlgorithmContract
         $this->data = $this->prepareData($data);
         $result = [];
 
-        //Проверяем у всех парентов и добавляем чилдренов
-        for ($i = 0; $i < count($this->data); $i++) {
-            for ($j = 0; $j < count($this->data); $j++) {
-                if ($this->data[$j]['parent'] == $this->data[$i]['itemName']) {
-                    $this->data[$i]['children'][] = $this->data[$j]['itemName'];
-                }
-            }
+        $map = [];
+        foreach ($this->data as $el) {
+            $map[$el['itemName']] = new Node($el['itemName']);
+            if ($el['parent'])
+            $map[$el['parent']] = new Node($el['parent']);
         }
-        //Проверяем у всех релейшены и добавляем чилдренов по этим релейшенам
-        for ($i = 0; $i < count($this->data); $i++) {
-            if ($this->data[$i]['relation'] == null) {
+
+        foreach ($this->data as $el) {
+            if ($el['parent']) {
+                $map[$el['parent']]->addChild($map[$el['itemName']]);
+                $map[$el['itemName']]->setParent($map[$el['parent']]->getValue());
                 continue;
             }
-            foreach ($this->data as $el) {
-                if ($el['parent'] == $this->data[$i]['relation']) {
-                    $this->data[$i]['children'][] = $el['itemName'];
-                }
-            }
+            $map[$el['itemName']]->setParent(null);
         }
-        //Воссоздаем адекватную структуру выходного json`а
+        
         foreach ($this->data as $el) {
-            if ($el['parent'] == null) {
-                $result[] = [
-                    'itemName' => $el['itemName'],
-                    'parent' => $el['parent'],
-                    'children' => $this->buildChildTree($el)
-                ];
+            if (isset($el['relation'])) {
+                $map[$el['itemName']]->addChildren($map[$el['relation']]->getChildren());
             }
         }
 
-        return $result;
+        foreach ($map as $el) {
+            if ($el->getParent() === null)
+            $result[] = $el;
+        }
+
+        return $this->transformDataToOutput($result);
     }
 
-    /**
-     * Построение дерева потомков (children).
-     *
-     * @param array $el
-     * 
-     * @return array
-     */
-    private function buildChildTree(array $el): array
+    private function transformDataToOutput(array $result): array
     {
-        $tree = [];
-        if (!isset($el['children'])) {
-            return [];
+        $finalResult = [];
+        foreach ($result as $el) {
+            $finalResult[] = [
+                'itemName' => $el->getValue(),
+                'parent' => $el->getParent(),
+                'children' => $this->transformDataToOutput($el->getChildren())
+            ];
         }
 
-        foreach ($this->data as $element) {
-            if (in_array($element['itemName'], $el['children'])) {
-                $tree[] = [
-                    'itemName' => $element['itemName'],
-                    'parent' => $element['parent'],
-                    'children' => $this->buildChildTree($element)
-                ];
-            }
-        }
-
-        return $tree;
+        return $finalResult;
     }
 
     /**
