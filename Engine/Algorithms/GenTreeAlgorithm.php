@@ -57,6 +57,13 @@ class GenTreeAlgorithm implements AlgorithmContract
         return $this->transformDataToOutput($result);
     }
 
+    /**
+     * Трансформация финальных данных в выходной массив.
+     *
+     * @param array $result
+     * 
+     * @return array
+     */
     private function transformDataToOutput(array $result): array
     {
         $finalResult = [];
