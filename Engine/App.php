@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MikhUd\CSVGenTree\Engine;
+namespace MikhUd\CSVDB\Engine;
 
 /**
  * Класс App.
@@ -33,9 +33,8 @@ class App
         $config = json_decode(file_get_contents(__DIR__ . '/../config/app.json'), true);
 
         return [
-            'algorithm' => $config['algorithm'],
-            'controller' => $config['available_algorithms'][$config['algorithm']]['controller'],
-            'presets' => $config['available_algorithms'][$config['algorithm']]['presets']
+            'controller' => $config['available']['controller'],
+            'presets' => $config['available']['presets']
         ];
     }
 }

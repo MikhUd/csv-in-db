@@ -1,6 +1,6 @@
 {
-    "name": "mikhud/csv-gentree",
-    "description": "Parse CSV file and generate JSON tree file",
+    "name": "mikhud/check-report-csv-data-in-db",
+    "description": "Check csv data in db and make report",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -12,12 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "MikhUd\\CSVGenTree\\Engine\\": "Engine/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "MikhUd\\CSVGenTree\\Tests\\": "Tests/"
+            "MikhUd\\CSVDB\\Engine\\": "Engine/"
         }
     },
     "minimum-stability": "dev",

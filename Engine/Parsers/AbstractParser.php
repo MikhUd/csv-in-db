@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace MikhUd\CSVGenTree\Engine\Parsers;
+namespace MikhUd\CSVDB\Engine\Parsers;
 
-use MikhUd\CSVGenTree\Engine\Exceptions\FileNotFoundException;
+use MikhUd\CSVDB\Engine\Exceptions\FileNotFoundException;
 
 /**
  * Класс AbstractParser.
@@ -15,26 +15,24 @@ abstract class AbstractParser
      * Парсинг csv файла в массив.
      *
      * @param string $path
-     * @param string $delimeter
      * 
      * @return array
      */
-    public function parseToArray(string $path, string $delimeter): array
+    public function parseToArray(string $path): array
     {
         if (!file_exists($path)) {
             throw FileNotFoundException::fileNotFound();
         }
 
-        return $this->startParseToArray($path, $delimeter);
+        return $this->startParseToArray($path);
     }
 
     /**
      * Парсинг csv файла в массив.
      *
      * @param string $path
-     * @param string $delimeter
      * 
      * @return array
      */
-    public abstract function startParseToArray(string $path, string $delimeter): array;
+    public abstract function startParseToArray(string $path): array;
 }

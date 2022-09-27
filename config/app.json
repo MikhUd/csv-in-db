@@ -1,17 +1,14 @@
 {
-  "algorithm": "genTree",
-  "available_algorithms": {
-    "genTree": {
-      "controller": {
-        "path": "MikhUd\\CSVGenTree\\Engine\\Controllers\\GenTreeController"
-      },
-      "presets" : {
-        "parser_type": "csv",
-        "delimeter": ";"
-      }
+    "algorithm": "genTree",
+    "available": {
+        "controller": {
+          "path": "MikhUd\\CSVDB\\Engine\\Controllers\\MainController"
+        },
+        "presets" : {
+          "parser_type": "csv"
+        }
+    },
+    "available_parsers": {
+      "csv": "MikhUd\\CSVDB\\Engine\\Parsers\\CSVParser"
     }
-  },
-  "available_parsers": {
-    "csv": "MikhUd\\CSVGenTree\\Engine\\Parsers\\CSVParser"
-  }
 }

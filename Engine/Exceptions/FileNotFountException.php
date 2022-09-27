@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MikhUd\CSVGenTree\Engine\Exceptions;
+namespace MikhUd\CSVDB\Engine\Exceptions;
 
 use Exception;
 
